@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="toggleAdd">Add</button>
+        <div v-if="showAdd">
+            <p>{{ tanar.nev }}</p>
+            <p>Név: <input v-model="tanar.nev" type="text"></p>
+            <p>Kép: <input v-model="tanar.kep" type="text"></p>
+            <button v-on:click="save">Save</button>
+        </div>
+        <div v-for="tanar in tanarok">
+            <p>{{ tanar.nev }}</p>
+            <img v-if="tanar.kep != ''" v-bind:src="tanar.kep" width="100">            
+            <img v-if="tanar.kep == ''" src="http://petrik.hu/wp-content/uploads/2020/09/tanarur.png" width="100">            
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                tanar: {
+                    nev: '',
+                    kep: '',    
+                },
+                showAdd: true,
+                show: true,
+                tanarok: [
+                {
+                    nev: 'Györgyi Tamás',
+                    kep: 'http://petrik.hu/wp-content/uploads/2020/09/gyorgyi_tamas.jpg'
+                },
+                {
+                    nev: 'Halász Gábor',
+                    kep: 'http://petrik.hu/wp-content/uploads/2020/09/halasz_gabor.jpg'
+                },
+                {
+                    nev: 'Palócz István',
+                    kep: ''
+                },
+            ],
+            },
+            methods: {
+                toggleAdd() {
+                    this.showAdd = !this.showAdd
+                },
+                save() {
+                    this.tanarok.push({...this.tanar})
+                }
+            },
+          })     
+    </script>
+</body>
+</html>
